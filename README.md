@@ -19,6 +19,8 @@ Tinkercad provides a simulation environment where this circuit can be virtually 
 
 
 ## Circuit Diagram:
+<img width="1247" height="755" alt="image" src="https://github.com/user-attachments/assets/fc66ca32-1fbc-4350-a8fc-e4bbaebf9f38" />
+
  
 ## Procedure: //Modify the procedure based on your circuit
 
@@ -53,7 +55,40 @@ Step 7: Save Your Work
 
 
 ## Code:
+```
+#define trigEchoPin 7   // Single SIG pin connected here
 
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigEchoPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Send a short HIGH pulse (trigger)
+  pinMode(trigEchoPin, OUTPUT);
+  digitalWrite(trigEchoPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigEchoPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigEchoPin, LOW);
+
+  // Switch pin to input (listen for echo)
+  pinMode(trigEchoPin, INPUT);
+  duration = pulseIn(trigEchoPin, HIGH);
+
+  // Convert time to distance
+  distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(500);
+}
+```
 
 ## Output:
  
